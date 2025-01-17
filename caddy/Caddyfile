@@ -1,0 +1,100 @@
+(cloudflare) {
+        tls {
+                dns cloudflare <cloudflare_api_key>
+        }
+}
+
+proxmox.iseppe.xyz {
+        reverse_proxy 192.168.2.100:8006 {
+                transport http {
+                        tls_insecure_skip_verify
+                }
+        }
+        log {
+                output file /var/log/caddy/proxmox.log {
+                }
+        }
+        import cloudflare
+}
+
+bitwarden.iseppe.xyz {
+        reverse_proxy 192.168.2.76:8000 {
+        }
+        log {
+                output file /var/log/caddy/vaultwarden.log
+        }
+        import cloudflare
+}
+
+seedbox.iseppe.xyz {
+        #file_server
+        #encode zstd gzip
+        reverse_proxy 192.168.2.73:8080 {
+        }
+        log {
+                output file /var/log/caddy/qbittorrent.log
+        }
+        #header {
+        #       Access-Control-Allow-Headers *
+        #       Access-Control-Allow-Methods *
+        #       Access-Control-Allow-Origin *
+        #}
+        #@options {
+        #       method OPTIONS
+        #}
+        #respond @options 204
+        import cloudflare
+}
+
+git.iseppe.xyz {
+        reverse_proxy 192.168.2.85:3000 {
+        }
+        log {
+                output file /var/log/caddy/gitea.log
+        }
+        import cloudflare
+}
+
+omv.iseppe.xyz {
+        reverse_proxy 192.168.2.91 {
+        }
+        log {
+                output file /var/log/caddy/openmediavault.log
+        }
+        import cloudflare
+}
+
+dash.iseppe.xyz {
+        reverse_proxy 192.168.2.92:8010 {
+        }
+        log {
+                output file /var/log/caddy/homer_dashboard.log
+        }
+        import cloudflare
+}
+
+http://umbrel.iseppe.xyz {
+        reverse_proxy 10.0.0.138 {
+        }
+        log {
+                output file /var/log/caddy/umbrel.log
+        }
+}
+
+router.iseppe.xyz {
+        reverse_proxy 10.0.0.1 {
+        }
+        log {
+                output file /var/log/caddy/openwrt.log
+        }
+        import cloudflare
+}
+
+mynode.iseppe.xyz {
+        reverse_proxy 10.0.0.158 {
+        }
+        log {
+                output file /var/log/caddy/mynode.log
+        }
+        import cloudflare
+}
