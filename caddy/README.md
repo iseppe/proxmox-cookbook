@@ -9,3 +9,5 @@ apt install caddy
 
 caddy add-package github.com/caddy-dns/cloudflare
 ```
+
+> NOTE: After every upgrade, you need to re-add the cloudflare package
