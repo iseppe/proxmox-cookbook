@@ -1,10 +1,10 @@
 # proxmox-cookbook
 
 ## Index
-- [Resize VM Guest Disk](https://github.com/iseppe/proxmox-cookbook/README.md#resize-vm-guest-disk)
-- [Enable Serial Terminal (xterm.js)](https://github.com/iseppe/proxmox-cookbook/README.md#enable-serial-terminal-xtermjs)
-- [Mount NFS Share (OMV)](https://github.com/iseppe/proxmox-cookbook/README.md#mount-nfs-share-omv)
-- [Resize xterm.js Window](https://github.com/iseppe/proxmox-cookbook/README.md#resize-xtermjs-window)
+- [Resize VM Guest Disk](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#resize-vm-guest-disk)
+- [Enable Serial Terminal (xterm.js)](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#enable-serial-terminal-xtermjs)
+- [Mount NFS Share (OMV)](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#mount-nfs-share-omv)
+- [Resize xterm.js Window](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#resize-xtermjs-window)
 
 ## Resize VM Guest Disk
 
