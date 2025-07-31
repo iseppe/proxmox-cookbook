@@ -98,4 +98,83 @@ resize2fs /dev/sda1
 ```
 
 [See Proxmox official docs as reference](https://pve.proxmox.com/wiki/Resize_disks)
-  
+
+## Enable Serial Terminal (xterm.js)
+
+#### Add a Serial socket to the VM
+
+```shell
+qm set <vm_id> -serial0 socket
+```
+Or from GUI: `Hardware > Add > Serial Port`
+
+#### Configure the Guest
+
+**1. Check if you have the file `/etc/init/ttyS0.conf`. If not, create it:**
+
+```shell
+# ttyS0 - getty
+#
+# This service maintains a getty on ttyS0 from the point the system is
+# started until it is shut down again.
+
+start on stopped rc RUNLEVEL=[12345]
+stop on runlevel [!12345]
+
+respawn
+exec /sbin/getty -L 115200 ttyS0 vt102
+```
+
+**2. Enable/start the systemd service**
+
+```shell
+systemctl enable serial-getty@ttyS0.service
+
+systemctl start serial-getty@ttyS0.service
+```
+
+Alternatively, if your guest does not have systemd:
+
+```shell
+sudo start ttyS0
+```
+
+**You might consider creating the ttyS1.conf file as well, just as a backup in case you have a crash with ttyS0**
+
+**3. Update GRUB2 configuration**
+
+Edit this file `/etc/default/grub` to:
+
+```shell
+GRUB_CMDLINE_LINUX="quiet console=tty0 console=ttyS0,115200"
+```
+
+Then run:
+
+```shell
+# debian based
+update-grub
+
+# redhat based
+grub2-mkconfig --output=/boot/grub2/grub.cfg
+```
+
+Now reboot you machine:
+
+```shell
+sudo reboot now
+```
+
+You should now be able to connect to the Serial Terminal or using xterm.js from the GUI
+
+```shell
+qm terminal <vm_id>
+```
+
+**Note: if it seems to be not working, and you have defined ttyS1, you can connect to it with the command:**
+
+```shell
+qm terminal <VMiD> -iface serial1
+```
+
+[See Proxmox Serial Terminal Reference](https://pve.proxmox.com/wiki/Serial_Terminal)
