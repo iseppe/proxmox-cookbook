@@ -1,5 +1,11 @@
 # proxmox-cookbook
 
+## Index
+- [Resize VM Guest Disk](https://github.com/iseppe/proxmox-cookbook/edit/master/README.md#resize-vm-guest-disk)
+- [Enable Serial Terminal (xterm.js)](https://github.com/iseppe/proxmox-cookbook/edit/master/README.md#enable-serial-terminal-xtermjs)
+- [Mount NFS Share (OMV)](https://github.com/iseppe/proxmox-cookbook/edit/master/README.md#mount-nfs-share-omv)
+- [Resize xterm.js Window](https://github.com/iseppe/proxmox-cookbook/edit/master/README.md#resize-xtermjs-window)
+
 ## Resize VM Guest Disk
 
 > ONLINE = Resize operation performed while filesystem is mounted and in use
@@ -236,3 +242,30 @@ systemctl daemon-reload
 # Mount the share
 mount -a
 ```
+
+## Resize xterm.js window
+
+1. Append the following function to `/etc/profile`:
+
+```shell
+res() {
+
+  old=$(stty -g)
+  stty raw -echo min 0 time 5
+
+  printf '\0337\033[r\033[999;999H\033[6n\0338' > /dev/tty
+  IFS='[;R' read -r _ rows cols _ < /dev/tty
+
+  stty "$old"
+
+  # echo "cols:$cols"
+  # echo "rows:$rows"
+  stty cols "$cols" rows "$rows"
+}
+
+[ $(tty) = /dev/ttyS0 ] && res
+```
+
+2. Logout
+
+You should now be able to resize the window correctly. (If it does not work, try resizing before performing the login)
