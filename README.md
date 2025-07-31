@@ -14,7 +14,7 @@
 > 
 > (Below we will see the ONLINE method without unmount)
 
-1. **Resizing guest disk**
+**1. Resizing guest disk**
 
 qm command:
 
@@ -27,7 +27,7 @@ You can also select your VM from the list > Hardware > Hard Disk > Disk Action >
 <img width="200" height="120" alt="image" src="https://github.com/user-attachments/assets/fac76f0a-7070-4527-a9fd-4f0cae2a8a34" />
 
 
-2. **Enlarge the partition(s) in the virtual disk**
+**2. Enlarge the partition(s) in the virtual disk**
 
 **Online for Linux Guests**
 
@@ -57,7 +57,7 @@ Fix/Ignore? F
 (parted) quit
 ```
 
-3. **Enlarge the filesystem(s) in the partitions on the virtual disk**
+**3. Enlarge the filesystem(s) in the partitions on the virtual disk**
  
 **Online for Linux guests with LVM**
  
@@ -189,7 +189,7 @@ qm terminal <VMiD> -iface serial1
 
 > This section assumes you've already setup a NFS share (ex. OpenMediaVault)
 
-1. Test the exported path
+**1. Test the exported path**
 
 ```shell
 mount -t nfs <SERVER_IP>:path/to/nfs/export /path/to/local/mount
@@ -205,7 +205,7 @@ Export list for 10.0.0.117:
 /export                    10.0.0.0/24
 /export/shared-folder-1000 10.0.0.0/24
 ```
-2. Edit `/etc/fstab/` and make the mount persistent
+**2. Edit `/etc/fstab/` and make the mount persistent**
 
 ```shell
 <SERVER_IP>:/path/to/nfs/export /path/to/mount nfs defaults,_netdev,nofail,x-systemd.automount 0 0
@@ -230,7 +230,7 @@ Export list for 10.0.0.117:
 10.0.0.117:/export /mnt/omv/data
 ```
 
-3. Reload and mount
+**3. Reload and mount**
 
 ```shell
 # Unmout path (Maybe unnecessary, but I do it)
@@ -245,7 +245,7 @@ mount -a
 
 ## Resize xterm.js window
 
-1. Append the following function to `/etc/profile`:
+**1. Append the following function to `/etc/profile`:**
 
 ```shell
 res() {
@@ -266,6 +266,6 @@ res() {
 [ $(tty) = /dev/ttyS0 ] && res
 ```
 
-2. Logout
+**2. Logout**
 
 You should now be able to resize the window correctly. (If it does not work, try resizing before performing the login)
