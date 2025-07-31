@@ -178,3 +178,61 @@ qm terminal <VMiD> -iface serial1
 ```
 
 [See Proxmox Serial Terminal Reference](https://pve.proxmox.com/wiki/Serial_Terminal)
+
+## Mount NFS Share (OMV)
+
+> This section assumes you've already setup a NFS share (ex. OpenMediaVault)
+
+1. Test the exported path
+
+```shell
+mount -t nfs <SERVER_IP>:path/to/nfs/export /path/to/local/mount
+```
+
+You can list the exported paths from the server:
+
+```shell
+showmount -e <SERVER_IP>
+
+root@seedbox-ub24:~# showmount -e 10.0.0.117
+Export list for 10.0.0.117:
+/export                    10.0.0.0/24
+/export/shared-folder-1000 10.0.0.0/24
+```
+2. Edit `/etc/fstab/` and make the mount persistent
+
+```shell
+<SERVER_IP>:/path/to/nfs/export /path/to/mount nfs defaults,_netdev,nofail,x-systemd.automount 0 0
+```
+
+- **defaults** – standard NFS options
+
+- **_netdev** – ensures it waits for the network to be up
+
+- **nofail** – lets boot continue even if the share is unavailable
+
+- **x-systemd.automount** – auto-mounts on first access, improves boot time
+
+**NOTE:** if using NFSv4, make sure to only include the root export path and not subpaths:
+
+```shell
+# NFSv4
+# NO
+10.0.0.117:/export/shared-folder-1000 /mnt/omv/data
+
+# YES
+10.0.0.117:/export /mnt/omv/data
+```
+
+3. Reload and mount
+
+```shell
+# Unmout path (Maybe unnecessary, but I do it)
+umount /path/local/mount
+
+# Reload systemd daemon
+systemctl daemon-reload
+
+# Mount the share
+mount -a
+```
