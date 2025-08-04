@@ -38,3 +38,4 @@ caddy reload --config /etc/caddy/Caddyfile
 
 If you don't do this, you can't reload the configuration using `caddy reload`
 
+[See Caddy docs reference](https://caddyserver.com/docs/caddyfile/options#admin)
