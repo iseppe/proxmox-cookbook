@@ -269,3 +269,19 @@ res() {
 **2. Logout**
 
 You should now be able to resize the window correctly. (If it does not work, try resizing before performing the login)
+
+## Remove Proxmox No Subscription Popup
+
+**NOTE: the popup will come back whenever you upgrade your packages**
+
+**1. Edit `/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js`**
+
+Find the string `res.data.status.toLowerCase() !== 'active'` and replace `!==` with `==`
+
+**2. Restart pveproxy.service**
+
+```shell
+systemctl restart pveproxy.service
+```
+
+**OPTIONAL:** [Check this tool to automate this process between upgrades (not tested)](https://github.com/foundObjects/pve-nag-buster)
