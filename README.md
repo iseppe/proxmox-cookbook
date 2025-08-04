@@ -5,6 +5,7 @@
 - [Enable Serial Terminal (xterm.js)](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#enable-serial-terminal-xtermjs)
 - [Mount NFS Share (OMV)](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#mount-nfs-share-omv)
 - [Resize xterm.js Window](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#resize-xtermjs-window)
+- [Remove Proxmox No Subscription Popup](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#remove-proxmox-no-subscription-popup)
 
 ## Resize VM Guest Disk
 
