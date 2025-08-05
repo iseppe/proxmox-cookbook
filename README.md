@@ -6,6 +6,7 @@
 - [Mount NFS Share (OMV)](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#mount-nfs-share-omv)
 - [Resize xterm.js Window](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#resize-xtermjs-window)
 - [Remove Proxmox No Subscription Popup](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#remove-proxmox-no-subscription-popup)
+- [Use PVE Host as Tailscale Exit Node](https://github.com/iseppe/proxmox-cookbook/blob/master/README.md#use-pve-host-as-tailscale-exit-node)
 
 ## Resize VM Guest Disk
 
@@ -286,3 +287,25 @@ systemctl restart pveproxy.service
 ```
 
 **OPTIONAL:** [Check this tool to automate this process between upgrades (not tested)](https://github.com/foundObjects/pve-nag-buster)
+
+## Use PVE Host as Tailscale Exit Node
+
+**1. Advertise Exit Node**
+
+```shell
+tailscale up --advertise-routes=192.168.2.0/24 --advertise-exit-node
+```
+
+Replace `192.168.2.0/24` with the correct subnet your on (ex. 10.0.0.0/24)
+
+**2. Enable IP Forwarding**
+
+Without this, you'd only be able to use this exit node but **without your traffic being forwarded** (ex. access local PVE web ui, but can't go to other websites)
+
+```shell
+echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
+```
+
+[Refer to Tailscale IP Forwarding docs](https://tailscale.com/kb/1019/subnets?tab=linux#enable-ip-forwarding)
