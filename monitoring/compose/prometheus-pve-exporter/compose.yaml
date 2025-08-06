@@ -1,0 +1,9 @@
+services:
+  prometheus-pve-exporter:
+    init: true
+    container_name: prometheus-pve-exporter
+    image: prompve/prometheus-pve-exporter
+    ports:
+      - 9221:9221
+    volumes:
+      - /etc/prometheus/pve.yml:/etc/prometheus/pve.yml
