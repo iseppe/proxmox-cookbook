@@ -81,3 +81,7 @@ You can see uptime-kuma metrics via the `/metrics/` endpoint
 [Uptime Kuma — SLA/Latency/Certs](https://grafana.com/grafana/dashboards/18667-uptime-kuma-metrics/) <-- currently in use
 
 [Uptime Kuma - Metrics](https://grafana.com/grafana/dashboards/18278-uptime-kuma/)
+
+## Manage Docker Compose Containers
+
+[See Dockge](https://github.com/louislam/dockge)
