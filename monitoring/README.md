@@ -53,3 +53,31 @@ scrape_configs:
 [See Grafana Install Docs](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/)
 
 [You can use this dashboard](https://grafana.com/grafana/dashboards/10347-proxmox-via-prometheus/) to visualize your PVE metrics
+
+## Uptime Kuma Grafana Dashboard
+
+[Refer to this article](https://tomerklein.dev/real-time-uptime-monitoring-with-uptime-kuma-and-grafana-16638d6a579f)
+
+**1. Create API Key**
+
+`Home > Settings > API Key`
+
+You can see uptime-kuma metrics via the `/metrics/` endpoint
+
+**2. Configure Prometheus Scraper**
+
+```yaml
+  - job_name: 'uptime'
+    scrape_interval: 30s
+    scheme: http
+    static_configs:
+      - targets: ['uptime.example.com']
+    basic_auth: 
+      password: <API_KEY>
+```
+
+**3. Import Uptime-kuma Grafana Dashboard**
+
+[Uptime Kuma — SLA/Latency/Certs](https://grafana.com/grafana/dashboards/18667-uptime-kuma-metrics/) <-- currently in use
+
+[Uptime Kuma - Metrics](https://grafana.com/grafana/dashboards/18278-uptime-kuma/)
