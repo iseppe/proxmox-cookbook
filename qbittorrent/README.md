@@ -11,3 +11,4 @@ A cronjob (root) has been set to automatically pull new changes every Sunday at 
 ## Systemd Services
 
 qbittorrent-nox-5.0.3.service
+https://github.com/userdocs/qbittorrent-nox-static
