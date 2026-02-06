@@ -7,3 +7,7 @@ A cronjob (root) has been set to automatically pull new changes every Sunday at 
 ```shell
 59 23 * * 0 su - qbtuser -c 'cd /opt/vuetorrent-ui/VueTorrent && git pull'
 ```
+
+## Systemd Services
+
+qbittorrent-nox-5.0.3.service
